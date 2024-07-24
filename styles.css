@@ -1,0 +1,137 @@
+/* Estilo general del cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #002f3c; /* Azul petróleo */
+    color: #ffffff; /* Texto en blanco */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+/* Contenedor del login */
+.login-container {
+    background-color: #003d4c; /* Azul petróleo más oscuro */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Contenedor del menú */
+.menu {
+    background-color: #003d4c; /* Azul petróleo más oscuro */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+/* Estilo del formulario */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #005b7f; /* Azul petróleo claro */
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #000000; /* Texto en negro */
+}
+
+button {
+    padding: 10px;
+    background-color: #007b8f; /* Azul petróleo más claro */
+    border: none;
+    border-radius: 4px;
+    color: #ffffff; /* Texto en blanco */
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #005b7f; /* Azul petróleo más oscuro */
+}
+
+/* Estilo del mensaje de error */
+.error-message {
+    color: #f44336; /* Rojo más fuerte */
+    margin-top: 15px;
+}
+
+/* Estilo de las secciones de contenido */
+.content-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #003d4c;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 100%;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    margin-bottom: 10px;
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #007b8f;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+nav ul li a:hover {
+    background-color: #005b7f;
+}
+
+#result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#result-table th, #result-table td {
+    border: 1px solid #ffffff;
+    padding: 8px;
+    text-align: center;
+}
+
+.match {
+    background-color: #00a36c; /* Verde más fuerte */
+    color: #ffffff;
+}
+
+.mismatch {
+    background-color: #e53935; /* Rojo más fuerte */
+    color: #ffffff;
+}
