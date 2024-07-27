@@ -7,7 +7,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
 
     // Aquí puedes ajustar las credenciales según sea necesario
     const validUsername = 'admin';
-    const validPassword = 'password123';
+    const validPassword = 'admin';
 
     if (username === validUsername && password === validPassword) {
         document.getElementById('login-container').style.display = 'none';
