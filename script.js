@@ -95,3 +95,39 @@ function verifyData() {
 
     document.getElementById('verifierResult').innerHTML = resultHtml + summaryHtml;
 }
+
+function ignore7Data() {
+    const ignore7Input1 = document.getElementById('ignore7Input1').value;
+    const ignore7Input2 = document.getElementById('ignore7Input2').value;
+
+    // Obtener datos sin 7 dígitos y datos con dígitos a eliminar
+    const dataArray1 = ignore7Input1.split('\n').map(item => item.trim());
+    const dataArray2 = ignore7Input2.split('\n').map(item => item.trim());
+
+    const dataSet1 = new Set(dataArray1); // Conjunto de datos sin dígitos a eliminar
+    const dataSet2 = new Set(dataArray2.map(item => item.slice(7))); // Eliminar los primeros 7 dígitos
+
+    const missingInArray2 = [...dataSet1].filter(item => !dataSet2.has(item));
+    const missingInArray1 = [...dataSet2].filter(item => !dataSet1.has(item));
+
+    let resultHtml = '<table id="result-table"><tr><th>Datos Sin Dígitos</th><th>Datos Con Dígitos</th></tr>';
+
+    dataArray1.forEach((item1) => {
+        const matchedItem = dataArray2.find(item2 => item2.slice(7) === item1) || '';
+        resultHtml += `<tr><td class="${matchedItem ? 'match' : 'mismatch'}">${item1}</td><td class="${matchedItem ? 'match' : 'mismatch'}">${matchedItem || ''}</td></tr>`;
+    });
+    resultHtml += '</table>';
+
+    let summaryHtml = '<h2>Resumen:</h2>';
+    if (missingInArray2.length > 0) {
+        summaryHtml += '<p>Faltan en los Datos con Dígitos: <span class="mismatch">' + missingInArray2.join(', ') + '</span></p>';
+    }
+    if (missingInArray1.length > 0) {
+        summaryHtml += '<p>Faltan en los Datos Sin Dígitos: <span class="mismatch">' + missingInArray1.join(', ') + '</span></p>';
+    }
+    if (missingInArray2.length === 0 && missingInArray1.length === 0) {
+        summaryHtml += '<p>¡Todas las coincidencias están completas! <span class="match">¡Todo coincide!</span></p>';
+    }
+
+    document.getElementById('ignore7Result').innerHTML = resultHtml + summaryHtml;
+}
