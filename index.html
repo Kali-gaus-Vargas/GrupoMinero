@@ -33,6 +33,7 @@
             <textarea id="dataInput2" placeholder="Ingresa la segunda columna de números (Lista por Comparar)"></textarea>
             <button onclick="sortData()">Ordenar</button>
             <div id="result"></div>
+            <button id="downloadCsvBtn" style="display:none;" onclick="downloadCsv('result')">Descargar CSV</button>
         </div>
 
         <div id="verifier-section" class="content-section" style="display:none;">
@@ -41,14 +42,16 @@
             <textarea id="verifierInput2" placeholder="Remisión con prefijo"></textarea>
             <button onclick="verifyData()">Verificar</button>
             <div id="verifierResult"></div>
+            <button id="verifierDownloadCsvBtn" style="display:none;" onclick="downloadCsv('verifierResult')">Descargar CSV</button>
         </div>
 
         <div id="ignore7-section" class="content-section" style="display:none;">
-            <h2>Ignorar 7 Dígitos</h2>
+            <h2>Ignorar 5 Dígitos</h2>
             <textarea id="ignore7Input1" placeholder="Datos sin dígitos"></textarea>
             <textarea id="ignore7Input2" placeholder="Datos con dígitos a eliminar"></textarea>
             <button onclick="ignore7Data()">Verificar</button>
             <div id="ignore7Result"></div>
+            <button id="ignore7DownloadCsvBtn" style="display:none;" onclick="downloadCsv('ignore7Result')">Descargar CSV</button>
         </div>
     </div>
     <script src="script.js"></script>
