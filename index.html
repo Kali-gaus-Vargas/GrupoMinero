@@ -24,10 +24,11 @@
         <div id="menu" style="display:none;">
             <button onclick="showSection('compare-section')">PREFIJO (R105)</button>
             <button onclick="showSection('verifier-section')">PREFIJO (R/)</button>
-            <button onclick="showSection('ignore7-section')">IGNORAR 5 DÍGITOS</button>
+            <button onclick="showSection('ignore7-section')">TOMAR ULTIMOS 5 DÍGITOS</button>
         </div>
 
         <div id="compare-section" class="content-section" style="display:none;">
+            <button class="back-btn" onclick="showSection('menu')">Regresar</button>
             <h2>Comparar y Ordenar Datos</h2>
             <textarea id="dataInput1" placeholder="Ingresa la primera columna de números (Documento Material)"></textarea>
             <textarea id="dataInput2" placeholder="Ingresa la segunda columna de números (Lista por Comparar)"></textarea>
@@ -37,6 +38,7 @@
         </div>
 
         <div id="verifier-section" class="content-section" style="display:none;">
+            <button class="back-btn" onclick="showSection('menu')">Regresar</button>
             <h2>Verificador de Datos</h2>
             <textarea id="verifierInput1" placeholder="Datos sin prefijo (Número de Remisión)"></textarea>
             <textarea id="verifierInput2" placeholder="Remisión con prefijo"></textarea>
@@ -45,8 +47,10 @@
             <button id="verifierDownloadCsvBtn" style="display:none;" onclick="downloadCsv('verifierResult')">Descargar CSV</button>
         </div>
 
+    
         <div id="ignore7-section" class="content-section" style="display:none;">
-            <h2>Ignorar 5 Dígitos</h2>
+            <button class="back-btn" onclick="showSection('menu')">Regresar</button>
+            <h2>DEJAR ULTIMOS 5 Dígitos</h2>
             <textarea id="ignore7Input1" placeholder="Datos sin dígitos"></textarea>
             <textarea id="ignore7Input2" placeholder="Datos con dígitos a eliminar"></textarea>
             <button onclick="ignore7Data()">Verificar</button>

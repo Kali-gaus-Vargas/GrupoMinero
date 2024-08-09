@@ -86,6 +86,24 @@ button:hover {
     margin-top: 20px; /* Separación entre secciones */
 }
 
+/* Estilo del botón de regresar */
+.back-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #005b7f; /* Azul petróleo más oscuro */
+    border: none;
+    border-radius: 4px;
+    color: #ffffff; /* Texto en blanco */
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px 16px;
+}
+
+.back-btn:hover {
+    background-color: #003d4c; /* Azul petróleo más oscuro */
+}
+
 #result-table {
     width: 100%;
     border-collapse: collapse;

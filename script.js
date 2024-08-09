@@ -50,13 +50,10 @@ function sortData() {
         summaryHtml += '<p>Faltan en la Lista por Comparar: <span class="mismatch">' + missingInArray2.join(', ') + '</span></p>';
     }
     if (missingInArray1.length > 0) {
-        summaryHtml += '<p>Faltan en el Documento Material: <span class="mismatch">' + missingInArray1.join(', ') + '</span></p>';
-    }
-    if (missingInArray2.length === 0 && missingInArray1.length === 0) {
-        summaryHtml += '<p><span class="match">¡Todas las coincidencias están completas! ¡Todo coincide!</span></p>';
+        summaryHtml += '<p>Faltan en Documento Material: <span class="mismatch">' + missingInArray1.join(', ') + '</span></p>';
     }
 
-    document.getElementById('result').innerHTML = resultHtml + summaryHtml;
+    document.getElementById('result').innerHTML = summaryHtml + resultHtml;
     document.getElementById('downloadCsvBtn').style.display = 'block';
 }
 
@@ -65,31 +62,31 @@ function verifyData() {
     const verifierInput2 = document.getElementById('verifierInput2').value;
 
     const verifierArray1 = verifierInput1.split('\n').map(item => item.trim());
-    const verifierArray2 = verifierInput2.split('\n').map(item => item.trim().slice(2));
+    const verifierArray2 = verifierInput2.split('\n').map(item => item.trim().slice(2)); // Ignorar los primeros dos caracteres
 
-    const missingInArray2 = verifierArray1.filter(item => !verifierArray2.includes(item));
-    const missingInArray1 = verifierArray2.filter(item => !verifierArray1.includes(item));
+    const verifierSet1 = new Set(verifierArray1);
+    const verifierSet2 = new Set(verifierArray2);
 
-    let resultHtml = '<table id="result-table"><tr><th>Datos sin prefijo</th><th>Remisión con prefijo</th></tr>';
+    const missingInArray2 = [...verifierSet1].filter(item => !verifierSet2.has(item));
+    const missingInArray1 = [...verifierSet2].filter(item => !verifierSet1.has(item));
+
+    let verifierResultHtml = '<table id="result-table"><tr><th>Datos sin Prefijo</th><th>Datos con Prefijo</th></tr>';
 
     verifierArray1.forEach((item1) => {
         const matchedItem = verifierArray2.find(item2 => item2 === item1) || '';
-        resultHtml += `<tr><td class="${matchedItem ? 'match' : 'mismatch'}">${item1}</td><td class="${matchedItem ? 'match' : 'mismatch'}">${matchedItem || ''}</td></tr>`;
+        verifierResultHtml += `<tr><td class="${matchedItem ? 'match' : 'mismatch'}">${item1}</td><td class="${matchedItem ? 'match' : 'mismatch'}">${matchedItem || ''}</td></tr>`;
     });
-    resultHtml += '</table>';
+    verifierResultHtml += '</table>';
 
-    let summaryHtml = '<h2>Resumen:</h2>';
+    let verifierSummaryHtml = '<h2>Resumen:</h2>';
     if (missingInArray2.length > 0) {
-        summaryHtml += '<p>Faltan en la Remisión con prefijo: <span class="mismatch">' + missingInArray2.join(', ') + '</span></p>';
+        verifierSummaryHtml += '<p>Faltan en Datos con Prefijo: <span class="mismatch">' + missingInArray2.join(', ') + '</span></p>';
     }
     if (missingInArray1.length > 0) {
-        summaryHtml += '<p>Faltan en los Datos sin prefijo: <span class="mismatch">' + missingInArray1.join(', ') + '</span></p>';
-    }
-    if (missingInArray2.length === 0 && missingInArray1.length === 0) {
-        summaryHtml += '<p><span class="match">¡Todas las coincidencias están completas! ¡Todo coincide!</span></p>';
+        verifierSummaryHtml += '<p>Faltan en Datos sin Prefijo: <span class="mismatch">' + missingInArray1.join(', ') + '</span></p>';
     }
 
-    document.getElementById('verifierResult').innerHTML = resultHtml + summaryHtml;
+    document.getElementById('verifierResult').innerHTML = verifierSummaryHtml + verifierResultHtml;
     document.getElementById('verifierDownloadCsvBtn').style.display = 'block';
 }
 
@@ -98,51 +95,43 @@ function ignore7Data() {
     const ignore7Input2 = document.getElementById('ignore7Input2').value;
 
     const ignore7Array1 = ignore7Input1.split('\n').map(item => item.trim());
-    const ignore7Array2 = ignore7Input2.split('\n').map(item => item.trim().slice(5));
+    const ignore7Array2 = ignore7Input2.split('\n').map(item => item.trim());
 
-    const missingInArray2 = ignore7Array1.filter(item => !ignore7Array2.includes(item));
-    const missingInArray1 = ignore7Array2.filter(item => !ignore7Array1.includes(item));
+    // Extraer los últimos 5 dígitos para la comparación
+    const ignore7Set1 = new Set(ignore7Array1.map(item => item.slice(-5)));
+    const ignore7Set2 = new Set(ignore7Array2.map(item => item.slice(-5)));
 
-    let resultHtml = '<table id="result-table"><tr><th>Datos sin dígitos</th><th>Datos con dígitos a eliminar</th></tr>';
+    const missingInArray2 = [...ignore7Set1].filter(item => !ignore7Set2.has(item));
+    const missingInArray1 = [...ignore7Set2].filter(item => !ignore7Set1.has(item));
+
+    let ignore7ResultHtml = '<table id="result-table"><tr><th>Datos sin Dígitos</th><th>Datos con Dígitos</th></tr>';
 
     ignore7Array1.forEach((item1) => {
-        const matchedItem = ignore7Array2.find(item2 => item2 === item1) || '';
-        resultHtml += `<tr><td class="${matchedItem ? 'match' : 'mismatch'}">${item1}</td><td class="${matchedItem ? 'match' : 'mismatch'}">${matchedItem || ''}</td></tr>`;
+        const last5Digits1 = item1.slice(-5);
+        const matchedItem = ignore7Array2.find(item2 => item2.slice(-5) === last5Digits1) || '';
+        ignore7ResultHtml += `<tr><td class="${matchedItem ? 'match' : 'mismatch'}">${item1}</td><td class="${matchedItem ? 'match' : 'mismatch'}">${matchedItem || ''}</td></tr>`;
     });
-    resultHtml += '</table>';
+    ignore7ResultHtml += '</table>';
 
-    let summaryHtml = '<h2>Resumen:</h2>';
+    let ignore7SummaryHtml = '<h2>Resumen:</h2>';
     if (missingInArray2.length > 0) {
-        summaryHtml += '<p>Faltan en los Datos con dígitos a eliminar: <span class="mismatch">' + missingInArray2.join(', ') + '</span></p>';
+        ignore7SummaryHtml += '<p>Faltan en Datos con Dígitos: <span class="mismatch">' + missingInArray2.join(', ') + '</span></p>';
     }
     if (missingInArray1.length > 0) {
-        summaryHtml += '<p>Faltan en los Datos sin dígitos: <span class="mismatch">' + missingInArray1.join(', ') + '</span></p>';
-    }
-    if (missingInArray2.length === 0 && missingInArray1.length === 0) {
-        summaryHtml += '<p><span class="match">¡Todas las coincidencias están completas! ¡Todo coincide!</span></p>';
+        ignore7SummaryHtml += '<p>Faltan en Datos sin Dígitos: <span class="mismatch">' + missingInArray1.join(', ') + '</span></p>';
     }
 
-    document.getElementById('ignore7Result').innerHTML = resultHtml + summaryHtml;
+    document.getElementById('ignore7Result').innerHTML = ignore7SummaryHtml + ignore7ResultHtml;
     document.getElementById('ignore7DownloadCsvBtn').style.display = 'block';
 }
 
-function downloadCsv(tableId) {
-    const table = document.getElementById(tableId);
-    const rows = table.getElementsByTagName('tr');
-    let csvContent = '';
-
-    for (let row of rows) {
-        const cells = row.getElementsByTagName('td');
-        let rowData = [];
-        for (let cell of cells) {
-            rowData.push(cell.textContent);
-        }
-        csvContent += rowData.join(',') + '\n';
-    }
-
-    const blob = new Blob([csvContent], { type: 'text/csv' });
+function downloadCsv(elementId) {
+    const csvContent = document.getElementById(elementId).innerText;
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `${tableId}.csv`;
+    link.download = 'resultado.csv';
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
 }
